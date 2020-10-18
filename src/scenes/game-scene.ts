@@ -3,6 +3,7 @@ import TileSprite = Phaser.GameObjects.TileSprite;
 import Text = Phaser.GameObjects.Text;
 import CursorKeys = Phaser.Types.Input.Keyboard.CursorKeys;
 import Image = Phaser.Physics.Arcade.Image;
+import Pointer = Phaser.Input.Pointer;
 
 export class GameScene extends Phaser.Scene {
   private sprite: Image;
@@ -29,7 +30,18 @@ export class GameScene extends Phaser.Scene {
 
     this.text = this.add.text(10, 10, 'angle');
 
-    this.input.on('pointermove', (pointer: any)  => {
+    // https://phaser.io/examples/v3/view/input/mouse/pointer-lock
+    // let pos = {x: 0, y:0};
+    // Pointer lock will only work after an 'engagement gesture', e.g. mousedown, keypress, etc.
+    // this.input.on('pointerdown', (pointer: Pointer) => {
+    //   this.input.mouse.requestPointerLock();
+    //   pos.x = pointer.x;
+    //   pos.y = pointer.y;
+    // }, this);
+
+
+
+    this.input.on('pointermove', (pointer: Pointer)  => {
       const angle = Phaser.Math.RAD_TO_DEG * Phaser.Math.Angle.Between(400, 300, pointer.x, pointer.y)
       this.sprite.setAngle(angle)
       this.text.text = 'angle: ' + angle
@@ -39,7 +51,7 @@ export class GameScene extends Phaser.Scene {
 
 
     //  Resize our game world to be a 2000 x 2000 square
-    // this.physics.world.bounds.setTo(-1000, -1000, 2000, 2000);
+    this.physics.world.bounds.setTo(-1000, -1000, 2000, 2000);
 
     this.cursors = this.input.keyboard.createCursorKeys();
 
@@ -59,23 +71,23 @@ export class GameScene extends Phaser.Scene {
 
   public update() {
     this.sprite.setVelocity(0);
-    var cam = this.cameras.main;
+    const factor = 200;
     if (this.cursors.left.isDown)
     {
-      this.sprite.setVelocityX(-400);
+      this.sprite.setVelocityX(-factor);
     }
     else if (this.cursors.right.isDown)
     {
-      this.sprite.setVelocityX(400);
+      this.sprite.setVelocityX(factor);
     }
 
     if (this.cursors.up.isDown)
     {
-      this.sprite.setVelocityY(-400);
+      this.sprite.setVelocityY(-factor);
     }
     else if (this.cursors.down.isDown)
     {
-      this.sprite.setVelocityY(400);
+      this.sprite.setVelocityY(factor);
     }
   }
 }
