@@ -51,7 +51,7 @@ export class GameScene extends Phaser.Scene {
 
 
     //  Resize our game world to be a 2000 x 2000 square
-    this.physics.world.bounds.setTo(-1000, -1000, 2000, 2000);
+    // this.physics.world.bounds.setTo(-1000, -1000, 2000, 2000);
 
     this.cursors = this.input.keyboard.createCursorKeys();
 
