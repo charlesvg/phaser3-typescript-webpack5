@@ -4,10 +4,12 @@ import {SplashScene} from "./scenes/splash-scene";
 
 const gameConfig = {
   type: Phaser.AUTO,
-  parent: 'content',
+  parent: 'phaser-example',
   width: 800,
   height: 600,
-  localStorageName: 'phaseres6webpack',
+  physics: {
+    default: 'arcade',
+  },
   scene: [SplashScene, GameScene]
 }
 
