@@ -29,7 +29,7 @@ export class GameScene extends Phaser.Scene {
         this.load.image('hitman', 'assets/games/goons/hitman.png');
         this.load.image('wall', 'assets/games/goons/concrete.png');
         this.load.image('bullet', 'assets/games/goons/bullet.png');
-        this.load.audio('gun-shot', 'assets/games/goons/gun-shot.mp3');
+        this.load.audio('gun-shot', 'assets/games/goons/garand-single.mp3');
     }
 
     public create() {
@@ -100,12 +100,11 @@ export class GameScene extends Phaser.Scene {
         if (this.cursors.up.isDown) {
             this.sprite.setVelocityY(-factor);
 
-            const bullet = this.bullets.get();
-
-            if (bullet) {
-              console.log('time', time, 'last', this.lastFired);
-                if (this.lastFired + 350 < time) {
-                    bullet.fire(this.sprite.x, this.sprite.y);
+            if (this.lastFired + 350 < time) {
+                const bullet = this.bullets.get();
+                if (bullet) {
+                    console.log('fire');
+                    bullet.fire(this.sprite.x, this.sprite.y, this.sprite.rotation);
                     this.gunShot.play();
                     this.lastFired = time;
                 }

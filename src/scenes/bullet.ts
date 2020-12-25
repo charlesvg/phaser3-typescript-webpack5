@@ -10,14 +10,23 @@ export class Bullet extends Phaser.GameObjects.Image {
         this.speed = Phaser.Math.GetSpeed(800, 1);
     }
 
-    public fire(x: number, y: number) {
+    public fire(x: number, y: number, rotation: number) {
+        this.rotation = rotation;
         this.setPosition(x + 5, y - 5);
         this.setActive(true);
         this.setVisible(true);
     }
 
     public update(time: number, delta: number) {
-        this.y -= this.speed * delta;
+
+        const length = this.speed * delta;
+        let newX = Math.round(this.x + length * Math.cos(this.rotation));
+        let newY = Math.round(this.y + length * Math.sin(this.rotation));
+
+        this.x = newX;
+        this.y = newY;
+
+        // this.y -= this.speed * delta;
 
         if (this.y < -50) {
             this.setActive(false);
