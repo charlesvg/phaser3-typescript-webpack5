@@ -8,7 +8,7 @@ module.exports = {
   entry: './src/main.ts',
   devtool: 'inline-source-map',
   devServer: {
-    contentBase: './dist',
+    static: './dist',
     hot: true,
   },
   plugins: [
